@@ -1,0 +1,74 @@
+.vs/
+
+# env
+*.env
+**/.env
+
+# ASP.NET Core specific files
+bin/
+obj/
+*.db
+*.db-journal
+*.pdb
+*.exe
+*.app
+*.log
+*.bak
+*.cache
+*.swp
+.env
+secrets.json
+appsettings.*.json
+
+# Migrations
+Migrations/
+
+# Visual Studio & Rider
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncrunch*
+*.dotCover
+*.testresults
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+
+# Angular specific files
+node_modules/
+dist/
+tmp/
+.out-tsc/
+.angular/
+*.log
+
+# Angular build artifacts
+*.angular-cli.json
+*.editorconfig
+*.eslintrc.json
+*.browserslistrc
+
+# Generated files
+coverage/
+*.tgz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment files (Angular)
+src/environments/environment*.ts
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# IDE Specific
+Thumbs.db
+Desktop.ini
