@@ -1,6 +1,7 @@
 
 using System.Reflection;
 using TrainingAppBackend.Context;
+using TrainingAppBackend.Repositories;
 using TrainingAppBackend.Services;
 
 namespace TrainingAppBackend
@@ -29,7 +30,12 @@ namespace TrainingAppBackend
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true);
 
+            //Repos
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            //Services
             builder.Services.AddScoped<WeatherForecastService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
