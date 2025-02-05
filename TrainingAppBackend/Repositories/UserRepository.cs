@@ -29,6 +29,11 @@ namespace TrainingAppBackend.Repositories
             return await _context.Users.FindAsync(id);
         }
 
+        public async Task<User?> GetByUsername(string username)
+        {
+            return await _context.Users.FirstAsync(u => u.Email == username);
+        }
+
         public async Task<int> GetMaxId()
         {
             return await _context.Users.AnyAsync() ? await _context.Users.MaxAsync(i =>  i.Id) : 0;

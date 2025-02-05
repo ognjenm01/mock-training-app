@@ -17,25 +17,17 @@ namespace TrainingAppBackend.Services
 
         public async Task AddUser(User user)
         {
-            int id = GetMaxId().Result + 1;
-            user.Id = id;
-
-            //Hash password + salt using ID
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: user.Password,
-            salt: BitConverter.GetBytes(id),
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 256 / 8));
-
-            user.Password = hashed;
-
             await _repo.AddUser(user);
         }
 
         public async Task<User?> GetById(int id)
         {
             return await _repo.GetById(id);
+        }
+
+        public async Task<User?> GetByUsername(string username)
+        {
+            return await _repo.GetByUsername(username);
         }
 
         public Task<int> GetMaxId()
