@@ -1,4 +1,5 @@
-﻿using TrainingAppBackend.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingAppBackend.Context;
 using TrainingAppBackend.Models;
 
 namespace TrainingAppBackend.Repositories
@@ -18,9 +19,19 @@ namespace TrainingAppBackend.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<User>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<User?> GetById(int id)
         {
             return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<int> GetMaxId()
+        {
+            return await _context.Users.AnyAsync() ? await _context.Users.MaxAsync(i =>  i.Id) : 0;
         }
     }
 }
