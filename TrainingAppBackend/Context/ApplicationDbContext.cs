@@ -18,5 +18,6 @@ namespace TrainingAppBackend.Context
         }
 
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

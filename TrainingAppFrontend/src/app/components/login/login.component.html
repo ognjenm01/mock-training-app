@@ -1,0 +1,25 @@
+<div id="body">
+    <mat-card>
+        <mat-card-content id="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" type="email" [(ngModel)]="loginRequest.username">
+                <mat-icon matPrefix>email</mat-icon>
+                <mat-hint>Enter your email</mat-hint>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password" [(ngModel)]="loginRequest.password">
+                <mat-icon matPrefix>lock</mat-icon>
+                    <mat-icon mat-icon-button matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                <mat-hint>Enter your password</mat-hint>
+            </mat-form-field>
+
+            <!-- Dugme za prijavu -->
+            <button mat-raised-button color="primary" id="login-button" (click)="login()" >Sign in</button>
+
+        </mat-card-content>
+    </mat-card>
+</div>

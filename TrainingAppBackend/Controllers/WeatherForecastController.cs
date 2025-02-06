@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAppBackend.Models;
 using TrainingAppBackend.Services;
@@ -22,6 +23,7 @@ namespace TrainingAppBackend.Controllers
             _service = service;
         }
 
+        [Authorize()]
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get()
         {
