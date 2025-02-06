@@ -34,7 +34,7 @@ namespace TrainingAppBackend.Services
                 numBytesRequested: 256 / 8));
 
                 if(user.Password.Equals(hashed)) 
-                    return new JwtDTO(_jwtService.GenerateToken(request.Username));
+                    return new JwtDTO(_jwtService.GenerateToken(user.Id, request.Username));
 
                 return null;
             }
@@ -64,7 +64,7 @@ namespace TrainingAppBackend.Services
             user = await _userService.AddUser(user);
 
             if (user != null)
-                return new JwtDTO(_jwtService.GenerateToken(request.Username));
+                return new JwtDTO(_jwtService.GenerateToken(user.Id, request.Username));
             else
                 return null;
         }

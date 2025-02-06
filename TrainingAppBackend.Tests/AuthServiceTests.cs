@@ -23,9 +23,9 @@ namespace TrainingAppBackend.Tests
         public async Task Login_Successful_ReturnsJwt()
         {
             var request = new LoginRequestDTO { Username = "testUser", Password = "password123" };
-            var user = new User(1, "testUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=");
+            var user = new User(1, "testUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=", new List<Training>());
             _mockUserService.Setup(u => u.GetByUsername(It.IsAny<string>())).ReturnsAsync(user);
-            _mockJwtService.Setup(j => j.GenerateToken(It.IsAny<string>())).Returns("generated_jwt_token");
+            _mockJwtService.Setup(j => j.GenerateToken(It.IsAny<int>(), It.IsAny<string>())).Returns("generated_jwt_token");
 
             var result = await _authService.Login(request);
 
@@ -37,7 +37,7 @@ namespace TrainingAppBackend.Tests
         public async Task Login_InvalidPassword_ReturnsNull()
         {
             var request = new LoginRequestDTO { Username = "testUser", Password = "wrongPassword" };
-            var user = new User(1, "testUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=");
+            var user = new User(1, "testUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=", new List<Training>());
             _mockUserService.Setup(u => u.GetByUsername(It.IsAny<string>())).ReturnsAsync(user);
 
             var result = await _authService.Login(request);
@@ -60,10 +60,10 @@ namespace TrainingAppBackend.Tests
         public async Task Register_Successful_ReturnsJwt()
         {
             var request = new RegisterRequestDTO { Username = "newUser", Password = "newPassword123" };
-            var newUser = new User(1, "newUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=");
+            var newUser = new User(1, "newUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=", new List<Training>());
             _mockUserService.Setup(u => u.GetMaxId()).ReturnsAsync(1);
             _mockUserService.Setup(u => u.AddUser(It.IsAny<User>())).ReturnsAsync(newUser);
-            _mockJwtService.Setup(j => j.GenerateToken(It.IsAny<string>())).Returns("generated_jwt_token");
+            _mockJwtService.Setup(j => j.GenerateToken(It.IsAny<int>(), It.IsAny<string>())).Returns("generated_jwt_token");
 
             var result = await _authService.Register(request);
 
@@ -75,7 +75,7 @@ namespace TrainingAppBackend.Tests
         public async Task Register_UserExists_ReturnsNull()
         {
             var request = new RegisterRequestDTO { Username = "existingUser", Password = "newPassword123" };
-            var existingUser = new User(1, "existingUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=");
+            var existingUser = new User(1, "existingUser", "UZ95WzRsLThbyxvP78BSGu49+eSM3E6P2uL6tq93v5Y=", new List<Training>());
             _mockUserService.Setup(u => u.GetByUsername(It.IsAny<string>())).ReturnsAsync(existingUser);
 
             var result = await _authService.Register(request);

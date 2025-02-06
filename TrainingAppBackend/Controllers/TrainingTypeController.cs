@@ -17,7 +17,7 @@ namespace TrainingAppBackend.Controllers
             _trainingTypeService = trainingTypeService;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         [Authorize()]
         public async Task<ActionResult<TrainingTypeDTO?>> GetById([FromRoute] int id) 
         {

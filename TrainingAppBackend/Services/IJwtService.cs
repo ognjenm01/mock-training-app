@@ -4,7 +4,7 @@ namespace TrainingAppBackend.Services
 {
     public interface IJwtService
     {
-        public string GenerateToken(string username);
+        public string GenerateToken(int id, string username);
 
         public ClaimsPrincipal? VerifyToken(string token);
     }

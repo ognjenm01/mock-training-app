@@ -22,7 +22,7 @@ namespace TrainingAppBackend.Context
         public DbSet<TrainingType> TrainingTypes { get; set; }
         public DbSet<Training> Trainings { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -33,22 +33,10 @@ namespace TrainingAppBackend.Context
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Training>()
-                .HasOne<User>(t => t.User)
-                .WithMany(u => u.Trainings)
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Training>()
                 .HasOne<TrainingType>()
                 .WithMany(tt => tt.Trainings)
-                .HasForeignKey(t => t.TrainingTypeId)
+                .HasForeignKey(t => t.TypeId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TrainingType>()
-                .HasMany<Training>(tt => tt.Trainings)
-                .WithOne()
-                .HasForeignKey("TrainingTypeId")
-                .OnDelete(DeleteBehavior.Cascade);
-        }
+        }*/
     }
 }

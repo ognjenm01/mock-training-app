@@ -6,7 +6,7 @@ namespace TrainingAppBackend.Models
     {
         [Key]
         public int Id { get; set; }
-        public int TrainingTypeId { get; set; }
+        public int TypeId { get; set; }
         public TrainingType Type { get; set; }
         public String Duration { get; set; }
         [Range(1, 10)]
@@ -22,7 +22,7 @@ namespace TrainingAppBackend.Models
         public Training()
         {
             Id = 0;
-            TrainingTypeId = 0;
+            TypeId = 0;
             Type = new TrainingType();
             Duration = String.Empty;
             Difficulty = 1;
@@ -37,7 +37,7 @@ namespace TrainingAppBackend.Models
         public Training(int id, int trainingTypeId, TrainingType type, string duration, ushort difficulty, ushort tiredness, double caloriesBurned, string note, DateTime created, int userId, User user)
         {
             Id = id;
-            TrainingTypeId = trainingTypeId;
+            TypeId = trainingTypeId;
             Type = type;
             Duration = duration;
             Difficulty = difficulty;
