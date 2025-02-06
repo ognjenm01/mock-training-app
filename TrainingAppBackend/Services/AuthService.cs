@@ -46,7 +46,7 @@ namespace TrainingAppBackend.Services
         {
             //TODO: Change to automapper
 
-            User? user = new User(0, request.Username, request.Password);
+            User? user = new User(0, request.Username, request.Password, new List<Training>());
 
             int id = _userService.GetMaxId().Result + 1;
             user.Id = id;
