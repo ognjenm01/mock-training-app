@@ -24,8 +24,8 @@ namespace TrainingAppBackend
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("http://localhost:4200").
-                                      AllowAnyMethod()
+                                      policy.WithOrigins("http://localhost:4200")
+                                      .AllowAnyMethod()
                                       .AllowAnyHeader();
                                   });
             });
@@ -100,6 +100,7 @@ namespace TrainingAppBackend
             builder.Services.AddDbContext<ApplicationDbContext>();
 
             var app = builder.Build();
+            app.UseCors(MyAllowSpecificOrigins);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -110,7 +111,7 @@ namespace TrainingAppBackend
 
             app.UseHttpsRedirection();
 
-            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseAuthorization();
 
 

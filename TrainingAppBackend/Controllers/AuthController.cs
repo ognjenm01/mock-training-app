@@ -16,9 +16,9 @@ namespace TrainingAppBackend.Controllers
         }
 
         [HttpPost("/login")]
-        public async Task<ActionResult<String?>> Login([FromBody] LoginRequestDTO request)
+        public async Task<ActionResult<JwtDTO?>> Login([FromBody] LoginRequestDTO request)
         {
-            String? token = await _authService.Login(request);
+            var token = await _authService.Login(request);
             if (token == null)
             {
                 return NotFound();
@@ -28,9 +28,13 @@ namespace TrainingAppBackend.Controllers
         }
 
         [HttpPost("/register")]
-        public async Task<ActionResult<String?>> Register([FromBody] RegisterRequestDTO request)
+        public async Task<ActionResult<JwtDTO?>> Register([FromBody] RegisterRequestDTO request)
         {
-            return await _authService.Register(request);
+            JwtDTO? jwt =  await _authService.Register(request);
+            if (jwt == null)
+                return Conflict(jwt);
+            else
+                return Ok(jwt);
         }
     }
 }

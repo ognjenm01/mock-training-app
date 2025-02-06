@@ -15,9 +15,12 @@ namespace TrainingAppBackend.Services
             _repo = repo;
         }
 
-        public async Task AddUser(User user)
+        public async Task<User?> AddUser(User user)
         {
-            await _repo.AddUser(user);
+            var existingUser = await GetByUsername(user.Email);
+            if (existingUser == null)
+                return await _repo.AddUser(user);
+            return null;
         }
 
         public async Task<User?> GetById(int id)
@@ -27,7 +30,15 @@ namespace TrainingAppBackend.Services
 
         public async Task<User?> GetByUsername(string username)
         {
-            return await _repo.GetByUsername(username);
+            try
+            {
+                return await _repo.GetByUsername(username);
+            }
+
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public Task<int> GetMaxId()

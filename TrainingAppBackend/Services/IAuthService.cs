@@ -6,7 +6,7 @@ namespace TrainingAppBackend.Services
 {
     public interface IAuthService
     {
-        Task<String?> Login(LoginRequestDTO request);
-        Task<String?> Register(RegisterRequestDTO request);
+        Task<JwtDTO?> Login(LoginRequestDTO request);
+        Task<JwtDTO?> Register(RegisterRequestDTO request);
     }
 }

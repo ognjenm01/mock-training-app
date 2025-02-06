@@ -1,0 +1,6 @@
+{
+    "apiServer": {
+      "url": "https://localhost:7297/",
+      "version": "v1"
+    }
+}

@@ -13,10 +13,11 @@ namespace TrainingAppBackend.Repositories
             _context = context;
         }
 
-        public async Task AddUser(User user)
+        public async Task<User?> AddUser(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task<IEnumerable<User>> GetAll()

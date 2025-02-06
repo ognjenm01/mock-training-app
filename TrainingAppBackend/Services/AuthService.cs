@@ -16,7 +16,7 @@ namespace TrainingAppBackend.Services
             _jwtService = jwtService;
         }
 
-        public async Task<string?> Login(LoginRequestDTO request)
+        public async Task<JwtDTO?> Login(LoginRequestDTO request)
         {
             //TODO: Change to automapper
 
@@ -34,7 +34,7 @@ namespace TrainingAppBackend.Services
                 numBytesRequested: 256 / 8));
 
                 if(user.Password.Equals(hashed)) 
-                    return _jwtService.GenerateToken(request.Username);
+                    return new JwtDTO(_jwtService.GenerateToken(request.Username));
 
                 return null;
             }
@@ -42,11 +42,11 @@ namespace TrainingAppBackend.Services
             return null;
         }
 
-        public async Task<string?> Register(RegisterRequestDTO request)
+        public async Task<JwtDTO?> Register(RegisterRequestDTO request)
         {
             //TODO: Change to automapper
 
-            User user = new User(0, request.Username, request.Password);
+            User? user = new User(0, request.Username, request.Password);
 
             int id = _userService.GetMaxId().Result + 1;
             user.Id = id;
@@ -61,9 +61,12 @@ namespace TrainingAppBackend.Services
 
             user.Password = hashed;
 
-            await _userService.AddUser(user);
+            user = await _userService.AddUser(user);
 
-            return _jwtService.GenerateToken(request.Username);
+            if (user != null)
+                return new JwtDTO(_jwtService.GenerateToken(request.Username));
+            else
+                return null;
         }
     }
 }
