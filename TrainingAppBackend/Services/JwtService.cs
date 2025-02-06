@@ -36,6 +36,26 @@ namespace TrainingAppBackend.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public string GenerateTokenCustomDate(string username,DateTime dateTime)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecurityKey));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, username)
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: dateTime.AddMinutes(_jwtSettings.ExpirationTimeInMinutes),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         public ClaimsPrincipal? VerifyToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

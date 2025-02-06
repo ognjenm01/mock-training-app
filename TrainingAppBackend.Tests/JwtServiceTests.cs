@@ -40,5 +40,41 @@ namespace TrainingAppBackend.Tests
             Assert.NotNull(jsonToken);
             Assert.Equal("Oggy", jsonToken?.Claims.First(c => c.Type == ClaimTypes.Name).Value);
         }
+
+        [Fact]
+        public void VerifyToken_ValidToken_ReturnsClaimsPrincipal()
+        {
+            var jwtService = new JwtService(_mockJwtSettings);
+            String username = "Oggy";
+            var token = jwtService.GenerateToken(username);
+
+            var principal = jwtService.VerifyToken(token);
+
+            Assert.NotNull(principal);
+            Assert.Equal(username, principal?.FindFirst(ClaimTypes.Name)?.Value);
+        }
+
+        [Fact]
+        public void VerifyToken_InvalidToken_ReturnsNull()
+        {
+            var jwtService = new JwtService(_mockJwtSettings);
+            var invalidToken = "invalid-token";
+
+            var principal = jwtService.VerifyToken(invalidToken);
+
+            Assert.Null(principal);
+        }
+
+        [Fact]
+        public void VerifyToken_ExpiredToken_ReturnsNull()
+        {
+            var jwtService = new JwtService(_mockJwtSettings);
+            String username = "Oggy";
+            var token = jwtService.GenerateTokenCustomDate(username, DateTime.UtcNow.AddDays(-10));
+
+            var principal = jwtService.VerifyToken(token);
+
+            Assert.Null(principal);
+        }
     }
 }
