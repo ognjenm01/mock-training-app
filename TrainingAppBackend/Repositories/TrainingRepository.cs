@@ -22,12 +22,12 @@ namespace TrainingAppBackend.Repositories
 
         public async Task<IEnumerable<Training?>> GetAll()
         {
-            return await _context.Trainings.ToListAsync();
+            return await _context.Trainings.Include(t => t.Type).ToListAsync();
         }
 
         public async Task<Training?> GetById(int id)
         {
-            return await _context.Trainings.FindAsync(id);
+            return await _context.Trainings.Include(t => t.Type).FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }
