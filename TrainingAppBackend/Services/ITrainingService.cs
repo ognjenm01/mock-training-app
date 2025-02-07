@@ -7,6 +7,7 @@ namespace TrainingAppBackend.Services
     {
         Task<TrainingDTO?> GetById(int id);
         Task<IEnumerable<TrainingDTO?>> GetAll();
+        Task<IEnumerable<TrainingDTO?>> GetByMonth(int month, int userId);
         Task<TrainingDTO?> AddTraining(TrainingDTO training);
     }
 }

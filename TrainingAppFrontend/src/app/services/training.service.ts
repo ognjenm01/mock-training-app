@@ -14,4 +14,8 @@ export class TrainingService {
   addTraining(training: Training): Observable<Training> {
     return this.http.post<Training>(`${environment.apiUrl}/training`, training);
   }
+
+  getByMonth(month: number): Observable<Training[]> {
+    return this.http.get<Training[]>(`${environment.apiUrl}/training/month/${month}`);
+  }
 }
