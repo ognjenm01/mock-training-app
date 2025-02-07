@@ -1,0 +1,51 @@
+<div id="body">
+    <mat-card>
+        <mat-card-content id="form">
+            <app-training-type-select (trainingTypeSelected)="onTrainingTypeSelected($event)"></app-training-type-select>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Duration (hh:mm:ss)</mat-label>
+                <input matInput [(ngModel)]="training.duration" placeholder="Enter duration (hh:mm:ss)">
+                <mat-hint>Format: hh:mm:ss</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Difficulty</mat-label>
+                <input matInput type="number" [(ngModel)]="training.difficulty" min="1" max="10" placeholder="Enter difficulty (1-10)">
+                <mat-hint>1 = Easy, 10 = Very Hard</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Tiredness</mat-label>
+                <input matInput type="number" [(ngModel)]="training.tiredness" min="1" max="10" placeholder="Enter tiredness (1-10)">
+                <mat-hint>1 = Not Tired, 10 = Exhausted</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Calories Burned</mat-label>
+                <input matInput type="number" [(ngModel)]="training.caloriesBurned" placeholder="Enter calories burned">
+                <mat-hint>Approximate calories burned</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Note</mat-label>
+                <textarea matInput [(ngModel)]="training.note" placeholder="Enter any additional notes"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Training date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" placeholder="Select date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Training time</mat-label>
+                <input matInput type="time" [(ngModel)]="selectedTime" placeholder="Select time">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+
+        </mat-card-content>
+    </mat-card>
+</div>

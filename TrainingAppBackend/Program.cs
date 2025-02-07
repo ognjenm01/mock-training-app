@@ -57,12 +57,16 @@ namespace TrainingAppBackend
 
             //Repos
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ITrainingTypeRepository, TrainingTypeRepository>();
+            builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 
             //Services
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
             builder.Services.AddScoped<WeatherForecastService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ITrainingTypeService, TrainingTypeService>();
+            builder.Services.AddScoped<ITrainingService, TrainingService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddControllers();

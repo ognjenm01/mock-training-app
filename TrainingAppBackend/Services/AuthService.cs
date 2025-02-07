@@ -34,7 +34,7 @@ namespace TrainingAppBackend.Services
                 numBytesRequested: 256 / 8));
 
                 if(user.Password.Equals(hashed)) 
-                    return new JwtDTO(_jwtService.GenerateToken(request.Username));
+                    return new JwtDTO(_jwtService.GenerateToken(user.Id, request.Username));
 
                 return null;
             }
@@ -46,7 +46,7 @@ namespace TrainingAppBackend.Services
         {
             //TODO: Change to automapper
 
-            User? user = new User(0, request.Username, request.Password);
+            User? user = new User(0, request.Username, request.Password, new List<Training>());
 
             int id = _userService.GetMaxId().Result + 1;
             user.Id = id;
@@ -64,7 +64,7 @@ namespace TrainingAppBackend.Services
             user = await _userService.AddUser(user);
 
             if (user != null)
-                return new JwtDTO(_jwtService.GenerateToken(request.Username));
+                return new JwtDTO(_jwtService.GenerateToken(user.Id, request.Username));
             else
                 return null;
         }

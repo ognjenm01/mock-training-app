@@ -4,6 +4,7 @@ using TrainingAppBackend.Models;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Newtonsoft.Json;
 
 namespace TrainingAppBackend.Tests
 {
@@ -31,14 +32,16 @@ namespace TrainingAppBackend.Tests
         {
             var jwtService = new JwtService(_mockJwtSettings);
             String username = "Oggy";
+            int id = 1;
 
-            var token = jwtService.GenerateToken(username);
+            var token = jwtService.GenerateToken(id, username);
 
             Assert.NotNull(token);
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
             Assert.NotNull(jsonToken);
             Assert.Equal("Oggy", jsonToken?.Claims.First(c => c.Type == ClaimTypes.Name).Value);
+            Assert.Equal("1", jsonToken?.Claims.ElementAt(1).Value);
         }
 
         [Fact]
@@ -46,12 +49,14 @@ namespace TrainingAppBackend.Tests
         {
             var jwtService = new JwtService(_mockJwtSettings);
             String username = "Oggy";
-            var token = jwtService.GenerateToken(username);
+            int id = 1;
+            var token = jwtService.GenerateToken(id, username);
 
             var principal = jwtService.VerifyToken(token);
 
             Assert.NotNull(principal);
             Assert.Equal(username, principal?.FindFirst(ClaimTypes.Name)?.Value);
+            Assert.Equal("1", principal?.Claims.ElementAt(1).Value);
         }
 
         [Fact]
