@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TrainingAppBackend.DTO;
 using TrainingAppBackend.Services;
 
@@ -34,6 +35,8 @@ namespace TrainingAppBackend.Controllers
         [Authorize()]
         public async Task<ActionResult<IEnumerable<TrainingDTO?>>> AddTraining([FromBody] TrainingDTO dto)
         {
+            var userId = User.Claims.ElementAt(1).Value;
+            dto.UserId = Convert.ToInt32(userId);
             return Ok(await _trainingService.AddTraining(dto));
         }
     }
