@@ -21,19 +21,9 @@ export class LoginComponent {
     hidePassword = true;
     loginRequest: LoginRequest = { username: '', password: '' };
 
-    constructor(private authService: AuthService, private snackBarService: SnackbarService) {}
+    constructor(private authService: AuthService) {}
 
     login() {
-      this.authService.login(this.loginRequest).subscribe({
-        next: (response: Jwt) => {
-          localStorage.setItem("jwt", response.token);
-          this.snackBarService.showSuccess("Successfully logged in!");
-        },
-
-        error: (error) => {
-          console.log(error);
-          this.snackBarService.showError("Failed to login!");
-        }
-      })
+      this.authService.login(this.loginRequest);
     }
 }
