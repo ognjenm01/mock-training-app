@@ -60,17 +60,7 @@ export class RegisterComponent {
       this.request.username = this.email?.value;
       this.request.password = this.password?.value;
 
-      this.authService.register(this.request).subscribe({
-        next: (response: Jwt) => {
-          localStorage.setItem("jwt", response.token);
-          this.snackBarService.showSuccess("Successfully registered!");
-          //Redirect here...
-        },
-
-        error: (err) => {
-          this.snackBarService.showError("Failed to register. Username may be already taken.")
-        }
-      })
+      this.authService.register(this.request);
     }
   }
 }

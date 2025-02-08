@@ -1,0 +1,26 @@
+.homepage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  mat-card {
+    text-align: center;
+    padding: 20px;
+    width: 800px;
+  }
+  
+  .button-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  button {
+    flex: 1;
+    padding: 12px;
+    font-size: 18px; 
+    border-radius: 5px;
+  }
+  
