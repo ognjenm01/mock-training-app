@@ -30,3 +30,7 @@ button {
     font-size: 16px;
     border-radius: 5px;
 }
+
+mat-card-header {
+    margin-bottom: 20px;
+}

@@ -38,3 +38,7 @@ button {
 app-training-type-select {
     width: 100%;
 }
+
+mat-card-header {
+    margin-bottom: 20px;
+}

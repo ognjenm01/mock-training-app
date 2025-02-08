@@ -44,3 +44,6 @@ mat-form-field {
     color: red;
   }
   
+  mat-card-header {
+    margin-bottom: 20px;
+}
