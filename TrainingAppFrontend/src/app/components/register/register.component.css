@@ -1,0 +1,44 @@
+#body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+mat-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+#login-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+mat-form-field {
+    margin-bottom: 16px;
+    display: block;
+  }
+  
+  mat-form-field.error-field {
+    margin-bottom: 36px;
+  }
+  
+  mat-error {
+    color: red;
+  }
+  
