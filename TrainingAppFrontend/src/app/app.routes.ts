@@ -1,5 +1,4 @@
 import { AuthGuard } from './guards/auth.guard';
-import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';

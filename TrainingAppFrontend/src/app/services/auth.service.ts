@@ -6,6 +6,7 @@ import { environment } from '../../enviroment';
 import { Jwt } from '../models/jwt.model';
 import { RegisterRequest } from '../models/register-request.model';
 import { SnackbarService } from './snackbar.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ import { SnackbarService } from './snackbar.service';
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   
-  constructor(private http: HttpClient, private snackBarService: SnackbarService) {}
+  constructor(private http: HttpClient, private snackBarService: SnackbarService, private router: Router) {}
 
   login(loginRequest: LoginRequest) {
     this.http.post<Jwt>(`${environment.apiUrl}/login`, loginRequest).subscribe({
@@ -21,6 +22,7 @@ export class AuthService {
         localStorage.setItem("jwt", response.token);
         this.snackBarService.showSuccess("Successfully logged in!");
         this.isLoggedInSubject.next(true);
+        this.router.navigate(["home"]);
       },
 
       error: (error) => {
@@ -36,6 +38,7 @@ export class AuthService {
         localStorage.setItem("jwt", response.token);
         this.snackBarService.showSuccess("Successfully logged in!");
         this.isLoggedInSubject.next(true);
+        this.router.navigate(["home"]);
       },
 
       error: (error) => {
