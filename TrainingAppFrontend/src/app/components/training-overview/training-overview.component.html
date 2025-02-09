@@ -1,12 +1,21 @@
 <div id="overview">
     <mat-card>
       <mat-card-content id="form">
-        <mat-form-field appearance="outline">
-          <mat-label>Select Month</mat-label>
-          <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onMonthChange($event)">
-            <mat-option *ngFor="let month of months" [value]="month.value">{{month.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+
+        <div class="filters">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Month</mat-label>
+            <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onMonthChange($event)">
+              <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Select Year</mat-label>
+            <input placeholder="Select year" matInput type="number" [(ngModel)]="selectedYear" min="2000" max="2030" step="1" (change)="onYearChange()">
+          </mat-form-field>
+        </div>
+        
   
         <mat-table [dataSource]="weekData">
           <ng-container matColumnDef="startDate">

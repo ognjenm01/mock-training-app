@@ -31,13 +31,16 @@ namespace TrainingAppBackend.Controllers
             return Ok(await _trainingService.GetAll());
         }
 
-        [HttpGet("month/{month}")]
-        [Authorize()]
-        public async Task<ActionResult<IEnumerable<TrainingDTO?>>> GetByMonth([FromRoute] int month)
+        [HttpGet("overview")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<TrainingDTO?>>> GetByMonth(
+            [FromQuery] int month,
+            [FromQuery] int year)
         {
             var userId = User.Claims.ElementAt(1).Value;
-            return Ok(await _trainingService.GetByMonth(month, Convert.ToInt32(userId)));
+            return Ok(await _trainingService.GetByMonthAndYear(month, year, Convert.ToInt32(userId)));
         }
+
 
         [HttpPost]
         [Authorize()]
