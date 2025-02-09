@@ -13,10 +13,11 @@ import { CommonModule } from '@angular/common';
 import { WeekData } from "../../models/week-data.model"
 import { Training } from '../../models/training.model';
 import { TrainingService } from '../../services/training.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-training-overview',
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MatIconModule, MatDatepickerModule, MatButtonModule, MatCardModule, MatCheckboxModule, FormsModule, CommonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MatIconModule, MatDatepickerModule, MatButtonModule, MatCardModule, MatCheckboxModule, FormsModule, MatNativeDateModule, CommonModule],
   templateUrl: './training-overview.component.html',
   styleUrl: './training-overview.component.css'
 })
@@ -37,6 +38,7 @@ export class TrainingOverviewComponent {
   ];
 
   selectedMonth = 0;
+  selectedYear: number = new Date().getFullYear();
   weekData: WeekData[] = [];
   monthlyTraining: Training[] = [];
   displayedColumns: string[] = ['startDate', 'endDate', 'totalTrainings', 'totalDuration', 'averageDifficulty', 'averageTiredness'];
@@ -45,9 +47,9 @@ export class TrainingOverviewComponent {
 
   onMonthChange(event: any): void {
     this.selectedMonth = event.value;
-    this.getWeeksInMonth(2025, this.selectedMonth);
+    this.getWeeksInMonth(this.selectedYear, this.selectedMonth);
     
-    this.trainingService.getByMonth(this.selectedMonth).subscribe({
+    this.trainingService.getByMonth(this.selectedMonth, this.selectedYear).subscribe({
       next: (result: Training[]) => {
         this.monthlyTraining = result;
         this.updateWeekdata();
@@ -57,6 +59,23 @@ export class TrainingOverviewComponent {
         console.log(error);
       }
     })
+  }
+
+  onYearChange() {
+    if(this.selectedMonth != 0) {
+      this.getWeeksInMonth(this.selectedYear, this.selectedMonth);
+      
+      this.trainingService.getByMonth(this.selectedMonth, this.selectedYear).subscribe({
+        next: (result: Training[]) => {
+          this.monthlyTraining = result;
+          this.updateWeekdata();
+        },
+
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }
   }
 
   getWeeksInMonth(year: number, month: number){
