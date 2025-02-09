@@ -63,7 +63,6 @@ namespace TrainingAppBackend
             //Services
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-            builder.Services.AddScoped<WeatherForecastService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ITrainingTypeService, TrainingTypeService>();
             builder.Services.AddScoped<ITrainingService, TrainingService>();

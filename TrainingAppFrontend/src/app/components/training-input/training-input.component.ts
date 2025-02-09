@@ -11,6 +11,7 @@ import { Training } from '../../models/training.model';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TrainingService } from '../../services/training.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-training-input',
@@ -25,7 +26,7 @@ export class TrainingInputComponent {
     name: ""
   }
 
-  constructor(private trainingService: TrainingService) {}
+  constructor(private trainingService: TrainingService, private snackBarService: SnackbarService) {}
 
   training: Training = {
     id : 0,
@@ -57,13 +58,32 @@ export class TrainingInputComponent {
 
       this.trainingService.addTraining(this.training).subscribe({
         next: (result) => {
-
+          this.snackBarService.showSuccess("Successfully added training");
+          this.training = this.clearInput()
         },
 
         error: (error) => {
-          console.log(error);
+          this.snackBarService.showError("Failed to added training");
         }
       })
     }
+  }
+
+  clearInput() : Training {
+    let training: Training = {
+      id : 0,
+      typeId: 1,
+      type: this.selectedTrainingType,
+      duration: "00:00:00",
+      difficulty: 5,
+      tiredness: 5,
+      caloriesBurned: 0,
+      note: "",
+      created: new Date(),
+      userId: 0,
+    }
+    this.selectedDate = new Date();
+    this.selectedTime = "00:00"
+    return training;  
   }
 }
