@@ -16,6 +16,6 @@ export class TrainingService {
   }
 
   getByMonth(month: number, year: number): Observable<Training[]> {
-    return this.http.get<Training[]>(`${environment.apiUrl}/training?month=${month}&year=${year}`);
+    return this.http.get<Training[]>(`${environment.apiUrl}/training/overview?month=${month}&year=${year}`);
   }
 }
