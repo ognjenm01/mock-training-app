@@ -1,5 +1,9 @@
 <div id="body">
     <mat-card>
+        <mat-card-header>
+            <mat-card-title>Input training data</mat-card-title>
+        </mat-card-header>
+        
         <mat-card-content id="form">
             <app-training-type-select (trainingTypeSelected)="onTrainingTypeSelected($event)"></app-training-type-select>
 
@@ -28,7 +32,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Note</mat-label>
+                <mat-label>Note (optional)</mat-label>
                 <textarea matInput [(ngModel)]="training.note" placeholder="Enter any additional notes"></textarea>
             </mat-form-field>
 

@@ -1,1 +1,23 @@
+<mat-toolbar color="primary">
+    <a class="app-title" mat-button routerLink="/home">Mock Training App</a>
+  
+    <ng-container *ngIf="isLoggedIn">
+        <a mat-button routerLink="/training/new">Input Training</a>
+        <a mat-button routerLink="/training/overview">Training Overview</a>
+    </ng-container>
+  
+    <!-- Ovaj element popunjava prostor između -->
+    <span class="spacer"></span>
+  
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+        <a mat-button routerLink="/logout" (click)="logout()">Logout</a>
+    </ng-container>
+  
+    <ng-template #loggedOut>
+      <a mat-button routerLink="/login">Login</a>
+      <a mat-button routerLink="/register">Register</a>
+    </ng-template>
+  </mat-toolbar>
+  
+
 <router-outlet>

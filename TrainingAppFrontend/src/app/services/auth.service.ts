@@ -1,24 +1,51 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../models/login-request.model';
 import { environment } from '../../enviroment';
 import { Jwt } from '../models/jwt.model';
 import { RegisterRequest } from '../models/register-request.model';
+import { SnackbarService } from './snackbar.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private snackBarService: SnackbarService, private router: Router) {}
 
-  login(loginRequest: LoginRequest): Observable<Jwt> {
-    return this.http.post<Jwt>(`${environment.apiUrl}/login`, loginRequest);
+  login(loginRequest: LoginRequest) {
+    this.http.post<Jwt>(`${environment.apiUrl}/login`, loginRequest).subscribe({
+      next: (response: Jwt) => {
+        localStorage.setItem("jwt", response.token);
+        this.snackBarService.showSuccess("Successfully logged in!");
+        this.isLoggedInSubject.next(true);
+        this.router.navigate(["home"]);
+      },
+
+      error: (error) => {
+        console.log(error);
+        this.snackBarService.showError("Failed to login!");
+      }
+    })
   }
 
-  register(registerRequest: RegisterRequest): Observable<Jwt> {
-    return this.http.post<Jwt>(`${environment.apiUrl}/register`, registerRequest);
+  register(registerRequest: RegisterRequest) {
+    this.http.post<Jwt>(`${environment.apiUrl}/register`, registerRequest).subscribe({
+      next: (response: Jwt) => {
+        localStorage.setItem("jwt", response.token);
+        this.snackBarService.showSuccess("Successfully logged in!");
+        this.isLoggedInSubject.next(true);
+        this.router.navigate(["home"]);
+      },
+
+      error: (error) => {
+        console.log(error);
+        this.snackBarService.showError("Failed to login!");
+      }
+    })
   }
 
   isAuthenticated(): boolean {
@@ -28,5 +55,14 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('jwt');
+    this.isLoggedInSubject.next(false);
+  }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return this.isLoggedInSubject.asObservable();
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem("jwt");
   }
 }

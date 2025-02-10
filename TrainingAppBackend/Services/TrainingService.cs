@@ -39,11 +39,11 @@ namespace TrainingAppBackend.Services
             return new TrainingDTO(t.Id, t.Type.Id, new TrainingTypeDTO(t.Type.Id, t.Type.Name), t.Duration, t.Difficulty, t.Tiredness, t.CaloriesBurned, t.Note, t.Created, t.UserId);
         }
 
-        public async Task<IEnumerable<TrainingDTO?>> GetByMonth(int month, int userId)
+        public async Task<IEnumerable<TrainingDTO?>> GetByMonthAndYear(int month, int year, int userId)
         {
             //Can be expanded to include year
             var allTrainings = await GetAll();
-            return allTrainings.Where(t => t.Created.Month == month && t.UserId == userId).ToList();
+            return allTrainings.Where(t => t.Created.Month == month && t.UserId == userId && t.Created.Year == year).ToList();
         }
     }
 }
